@@ -2,7 +2,7 @@
 
 * **Source Core File**: `rtl design/RAM_1.v`
 
-The `RAM1` module is a high-performance Single-Port Synchronous/Asynchronous Static RAM (SRAM) macro simulation block modeling an integrated 128-bit storage matrix ($16 \times 8\text{-bit}$ words). The module utilizes an industry-standard shared bidirectional inout datapath mesh gated by structural high-impedance tristate drivers, ensuring exclusive mutual exclusion between read and write operations on a single bus line.
+The `RAM1` module is a high-performance Single-Port Synchronous/Asynchronous Static RAM (SRAM) macro simulation block modeling an integrated 8-bit storage matrix ($1 \times 8\text{-bit}$ words). The module utilizes an industry-standard shared bidirectional inout datapath mesh gated by structural high-impedance tristate drivers, ensuring exclusive mutual exclusion between read and write operations on a single bus line.
 
 ---
 

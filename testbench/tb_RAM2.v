@@ -107,8 +107,3 @@ module tb_RAM2;
 
 endmodule
 
-// RAM1 : single port with common read and write port
-//         markdown/RAM_1.md : module details
-//         rtl_design/RAM_1.v : rtl design code
-//         testbench/tb_RAM1.v : testbench for simulation
-//         waveform/RAM1.png : simulation gtk wavefrom

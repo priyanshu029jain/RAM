@@ -30,7 +30,7 @@ module RAM2(
     // ONLY trigger when 'wr' transitions to break the feedback loop.
     always @(*) begin : write
         if (cs && !ale && wr && !rd) begin
-            mem_array[addr] <= data; 
+            mem_array[addr] = data; 
         end
     end
    

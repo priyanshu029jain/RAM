@@ -2,7 +2,7 @@
 
 - **File**: `RAM2.v`
 
-The `RAM2` module implements a highly pin-efficient, 128-bit Single-Port RAM macro cell ($16 \times 8\text{-bit}$ words) utilizing an **Address/Data Time-Multiplexed Bus** scheme. Controlled by an Address Latch Enable line (labeled as `rtl`), the module multiplexes both 4-bit memory addresses and 8-bit data payloads onto a single, shared 8-bit bidirectional bidirectional bus interface (`data`). This structure mimics traditional high-efficiency microprocessor-to-peripheral hardware interfaces where minimizing physical pin counts is an absolute priority.
+The `RAM2` module implements a highly pin-efficient, 8-bit Single-Port RAM macro cell ($1 \times 8\text{-bit}$ words) utilizing an **Address/Data Time-Multiplexed Bus** scheme. Controlled by an Address Latch Enable line (labeled as `ale`), the module multiplexes both 4-bit memory addresses and 8-bit data payloads onto a single, shared 8-bit bidirectional bus interface (`data`). This structure mimics traditional high-efficiency microprocessor-to-peripheral hardware interfaces where minimizing physical pin counts is an absolute priority.
 
 ---
 
@@ -17,7 +17,7 @@ The `RAM2` module implements a highly pin-efficient, 128-bit Single-Port RAM mac
 | Port name | Direction | Type | Description |
 | --------- | --------- | ---------- | ----------- |
 | **`cs`** | input | wire | **Chip Select:** Must be asserted high (`1`) to enable any read, write, or address-latch memory cycle operations within the macro. |
-| **`rtl`** | input | wire | **Address Latch Enable (ALE equivalent):** When high, the lower nibble of the shared data bus is captured as an address. When low, the bus is unlocked for data transfer phases. |
+| **`ale`** | input | wire | **Address Latch Enable (ALE equivalent):** When high, the lower nibble of the shared data bus is captured as an address. When low, the bus is unlocked for data transfer phases. |
 | **`rd`** | input | wire | **Read Enable:** Active-high control strobe that enables the combinational data output buffer to drive the shared bus. |
 | **`wr`** | input | wire | **Write Enable:** Active-high control strobe that validates an asynchronous data write into the targeted memory array slot. |
 | **`data`** | inout | wire [7:0] | **Multiplexed Bidirectional Bus:** Time-shared 8-bit datapath carrying target address coordinates (`rtl == 1`), incoming write data, or outgoing read data. |
