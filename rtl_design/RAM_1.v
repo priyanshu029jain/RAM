@@ -1,4 +1,5 @@
-// Description: single port RAM with 8 bite data and 4 bit address having common read and write port 
+// Description: single port RAM with 8 bite data and 4 bit address 
+//having common read and write port 
 // do read operation when rd && !wr and write when !rd && wr 
 // either read or write not both at same time 
 
