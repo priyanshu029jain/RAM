@@ -62,9 +62,9 @@ Unlike standard raw memory arrays that respond continuously to floating control 
 | **`word_width`** | `localparam` | Word_size * `BYTE | Total bits per independent word entry (Evaluates to 8 bits by default). |
 | **`data_width`** | `localparam` | word_width | Width dimension equivalent to a single word packet line. |
 | **`block_width`** | `localparam` | Block_size * word_width | Total bit-width footprint of an entire cache block line row (Evaluates to 32 bits by default). |
-| **`address_width`** | `localparam` | $clog2(\text{RAM\_size} \times \text{Block\_size})$ | Total resolution address bus width required to uniquely map every sub-word element across the system. |
-| **`tag_bites`** | `localparam` | $clog2(\text{RAM\_size})$ | Address bits allocated strictly for row indexing decoding tasks. |
-| **`offset_bites`** | `localparam` | $clog2(\text{Block\_size})$ | Address bits allocated to locate specific sub-word offsets within a block line row. |
+| **`address_width`** | `localparam` | $clog2(\text{RAM_size} \times \text{Block_size})$ | Total resolution address bus width required to uniquely map every sub-word element across the system. |
+| **`tag_bites`** | `localparam` | $clog2(\text{RAM_size})$ | Address bits allocated strictly for row indexing decoding tasks. |
+| **`offset_bites`** | `localparam` | $clog2(\text{Block_size})$ | Address bits allocated to locate specific sub-word offsets within a block line row. |
 | **`idle`** | `localparam` | `2'b00` | State defining system readiness, waiting on an external master request payload. |
 | **`write`** | `localparam` | `2'b01` | State executing synchronous block sub-bit vector generation tasks. |
 | **`read`** | `localparam` | `2'b10` | State isolating and latching targeted memory array content words combinationally. |
@@ -111,52 +111,6 @@ Both paths route straight to the `data_return` state, which asserts `done = 1'b1
 ***Type:** always
 ***Functional Mechanics:** Evaluates system behavior using combinational logic. It sets default values for control outputs at the top of the block to prevent dangerous unintended synthesis latches. It then opens a state decoding tree: inside `idle`, it asserts `ready` and watches for incoming requests to determine the next operational path based on the `cmd` bit; inside `write`, it schedules a transition to `data_return`; inside `read`, it looks up the memory matrix slice to populate the output rail; and inside `data_return`, it pulses the `done` strobe high to cleanly close out the host handshake loop.
 
-## 🗺️ Finite State Machine (FSM) Specification
-
-The operational lifecycle of the `RAM8` subsystem is governed by a synchronous, protocol-driven hardware state engine. This state network decouples host bus signaling transitions from the inner memory macro blocks, enforcing structured transaction boundaries.
-
-### FSM State Transition Diagram
-
-```text
-+-------------------+
-             |     Asynchronous  |
-             |      rst_n == 0   |
-             +---------+---------|
-                       |
-                       v
-             +-------------------+
-  +--------->|       IDLE        |<---------+
-  |          |      (2'b00)      |          |
-  |          +---------+---------+          |
-  |                    |                    |
-  |          req == 1  |  req == 1          |
-  |          cmd == 1  |  cmd == 0          |
-  |          (Write)   |  (Read)            |
-  |                    v                    |
-  |          +-------------------+          |
-  |          |    WRITE (2'b01)  |          |
-  |          |  Saves data_hold  |          |
-  |          +---------+---------+          |
-  |                    |                    |
-  |                    |                    |
-  |      Unconditional |  Unconditional     |
-  |                    v                    |
-  |          +-------------------+          |
-  |          |    READ (2'b10)   |          |
-  |          |  Extracts content |          |
-  |          +---------+---------+          |
-  |                    |                    |
-  |                    +--------------------+
-  |                    |
-  |                    v
-  |          +-------------------+
-  +----------|    DATA_RETURN    |
-             |      (2'b11)      |
-             |  Strobes done=1   |
-             +-------------------+
-```
-
-```markdown
 ## 🗺️ Finite State Machine (FSM) Specification
 
 The operational lifecycle of the `RAM8` subsystem is governed by a synchronous, protocol-driven hardware state engine. This state network decouples host bus signaling transitions from the inner memory macro blocks, enforcing structured transaction boundaries.

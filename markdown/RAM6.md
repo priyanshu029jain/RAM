@@ -58,9 +58,9 @@ Rather than treating memory as a simple flat sequence of individual independent 
 | **`word_width`** | `localparam` | Word_size * `BYTE | Total bits per independent word entry (Evaluates to 8 bits by default). |
 | **`data_width`** | `localparam` | word_width | Width dimension equivalent to a single word packet line. |
 | **`block_width`** | `localparam` | Block_size * word_width | Total bit-width footprint of an entire cache block line row (Evaluates to 32 bits by default). |
-| **`address_width`** | `localparam` | $clog2(\text{RAM\_size} \times \text{Block\_size})$ | Total resolution address bus width required to uniquely map every sub-word element across the system. |
-| **`tag_bites`** | `localparam` | $clog2(\text{RAM\_size})$ | Address bits allocated strictly for row indexing decoding tasks. |
-| **`offset_bites`** | `localparam` | $clog2(\text{Block\_size})$ | Address bits allocated to locate specific sub-word offsets within a block line row. |
+| **`address_width`** | `localparam` | $clog2(\text{RAM_size} \times \text{Block_size})$ | Total resolution address bus width required to uniquely map every sub-word element across the system. |
+| **`tag_bites`** | `localparam` | $clog2(\text{RAM_size})$ | Address bits allocated strictly for row indexing decoding tasks. |
+| **`offset_bites`** | `localparam` | $clog2(\text{Block_size})$ | Address bits allocated to locate specific sub-word offsets within a block line row. |
 
 ---
 
